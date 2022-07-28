@@ -67,6 +67,13 @@ if ($hassiteconfig) {
                    get_string('archivelimit', 'tool_coursearchiver'),
                    get_string('archivelimit_help', 'tool_coursearchiver'), 200, PARAM_INT));
 
+     // Define trash category. //taken from report_coursemanager
+     $displaylist = core_course_category::make_categories_list();
+     $name = 'tool_coursearchiver/category_bin';
+     $title = get_string('category_bin', 'tool_coursearchiver');
+     $description = get_string('category_bin_desc', 'tool_coursearchiver');
+     $settings->add(new admin_setting_configselect($name, $title, $description, array('value' => 2, 'fix' => false), $displaylist));
+
     // Link to Course Archiver tool.
     $ADMIN->add('courses', new admin_externalpage('toolcoursearchiver',
         get_string('coursearchiver', 'tool_coursearchiver'), "$CFG->wwwroot/$CFG->admin/tool/coursearchiver/index.php"));

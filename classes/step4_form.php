@@ -74,6 +74,9 @@ class tool_coursearchiver_step4_form extends moodleform {
             case tool_coursearchiver_processor::MODE_OPTOUT:
                 $message = get_string('confirmmessageoptout', 'tool_coursearchiver', $count);
                 break;
+            case tool_coursearchiver_processor::MODE_MOVETOBINCATEGORY:
+                $message = get_string('confirmmessagemovetobincategory', 'tool_coursearchiver', $count);
+                break;
             default:
                 $returnurl = new moodle_url('/admin/tool/coursearchiver/index.php',
                                             array("error" => get_string('unknownerror', 'tool_coursearchiver')));

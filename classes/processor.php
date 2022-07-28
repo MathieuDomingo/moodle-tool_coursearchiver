@@ -72,6 +72,11 @@ class tool_coursearchiver_processor {
      */
     const MODE_OPTOUT = 8;
 
+    /**
+     * Move courses to bin category.
+     */
+    const MODE_MOVETOBINCATEGORY = 9;
+
     /** @var int processor mode. */
     protected $mode;
 
@@ -139,7 +144,8 @@ class tool_coursearchiver_processor {
                                                                           self::MODE_DELETE,
                                                                           self::MODE_HIDEEMAIL,
                                                                           self::MODE_ARCHIVEEMAIL,
-                                                                          self::MODE_OPTOUT))) {
+                                                                          self::MODE_OPTOUT,
+                                                                          self::MODE_MOVETOBINCATEGORY))) {
             throw new coding_exception('Unknown process mode');
         }
 
@@ -174,7 +180,8 @@ class tool_coursearchiver_processor {
                                              self::MODE_DELETE,
                                              self::MODE_HIDEEMAIL,
                                              self::MODE_ARCHIVEEMAIL,
-                                             self::MODE_OPTOUT))) {
+                                             self::MODE_OPTOUT,
+                                             self::MODE_MOVETOBINCATEGORY))) {
                 if (empty($mform)) {
                     throw new coding_exception(get_string('errornoform', 'tool_coursearchiver'));
                 } else {
@@ -406,6 +413,28 @@ class tool_coursearchiver_processor {
                     $this->errors[] = get_string('errorinsufficientdata', 'tool_coursearchiver');
                 }
 
+                $tracker->results($this->mode, $this->total, $this->errors, $this->notices);
+                break;
+            case self::MODE_MOVETOBINCATEGORY:
+                $tracker->start();
+                $courses = $this->get_courses_and_their_owners();
+                if (!empty($courses)) {
+                    // Loop over the course array.
+                    $tracker->jobsize = count($courses);
+                    $tracker->error = false;
+                    foreach ($courses as $currentcourse) {
+                        $this->movetobincategory_course($currentcourse["course"]->id);
+                        $this->total++;
+                        $tracker->jobsdone++;
+                        $tracker->output($currentcourse);
+                    }
+                } else {
+                    $tracker->jobsize = 1;
+                    $tracker->jobsdone++;
+                    $tracker->output(false);
+                    $this->errors[] = get_string('errorinsufficientdata', 'tool_coursearchiver');
+                }
+                $tracker->finish();
                 $tracker->results($this->mode, $this->total, $this->errors, $this->notices);
                 break;
         }
@@ -1355,6 +1384,16 @@ class tool_coursearchiver_processor {
             return $course;
         }
         return false;
+    }
+
+    public static function movetobincategory_course($courseid)
+    {
+        global $DB;
+        //taken from report_coursemanager
+        $moveit = \core_course\management\helper::move_courses_into_category(get_config('tool_coursearchiver', 'category_bin'), array('id' => $courseid));
+        $datahide->id = $courseid;
+        $datahide->visible = 0;
+        $hide = $DB->update_record('course', $datahide);
     }
 
     /**
