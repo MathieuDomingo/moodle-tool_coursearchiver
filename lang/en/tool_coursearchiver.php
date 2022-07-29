@@ -58,6 +58,7 @@ $string['confirmmessagedelete'] = 'completely remove these {$a} courses?';
 $string['confirmmessagehide'] = 'hide these {$a} courses?';
 $string['confirmmessagehideemail'] = 'send an email to these {$a} course owners?';
 $string['confirmmessagemovetobincategory'] = 'Move to Bin Category these {$a} courses?';
+$string['confirmmessagemovetobincategoryemail'] = 'Send an email to these {$a} course owners?';
 $string['confirmmessageoptout'] = 'optout these {$a} courses?';
 $string['confirmrestore'] = 'Restore pending archive deletion?';
 $string['coursearchiver'] = 'Course Archiver';
@@ -119,6 +120,19 @@ $string['ignoresiteroles'] = 'Ignore Site Role Accesses';
 $string['includesubcat'] = 'Include courses in subcategories';
 $string['invalidmode'] = 'A valid mode for the tool was not given.';
 $string['movetobincategory'] = 'Move to Bin Category';
+$string['movetobincategoryemail'] = 'Send "Course to be Moved to Bin Category" Emails';
+$string['movetobincategorywarningemailsetting'] = 'Default Email Warning for Course to be Moved to Bin Category';
+$string['movetobincategorywarningemailsetting_help'] = 'This is the contents of an email that will be sent to all teachers of a course that is selected to be moved to Bin Category.';
+$string['movetobincategorywarningemailsettingdefault'] = '%to
+
+We would like to inform you that the following Moodle course(s) that you have taught are soon to be moved to Bin Category.
+This means that the course will be hidden and moved from its current Category to Bin Category.  If you would like to opt out of this process for one of the following courses, please click the link beside the course.
+
+%courses
+
+Thank you.
+';
+$string['movetobincategorywarningsubject'] = 'Notice: Courses will be moved to Bin Category soon.';
 $string['never'] = 'Never';
 $string['nocoursesfound'] = 'The search has resulted in 0 courses found.';
 $string['nocoursesselected'] = 'To perform this action you must have at least 1 course selected.';
@@ -131,6 +145,7 @@ $string['optout'] = 'Optout Courses';
 $string['optoutarchive'] = 'Do not archive this course';
 $string['optoutby'] = 'Requested By';
 $string['optouthide'] = 'Do not hide this course';
+$string['optoutmovetobincategory'] = 'Do not move this course to bin category';
 $string['optoutleft'] = '{$a} days left';
 $string['optoutlist'] = 'Manage Optout List';
 $string['optouttime'] = 'Time left';
@@ -166,6 +181,7 @@ $string['results_hide'] = 'Hidden courses: {$a}';
 $string['results_hideemail'] = 'Hidden course warning emails sent: {$a}';
 $string['results_optout'] = 'Optout courses: {$a}';
 $string['results_movetobincategory'] = 'Courses moved to Bin Category: {$a}';
+$string['results_movetobincategoryemail'] = 'Courses moved to Bin Category warning emails sent: {$a}';
 $string['resume'] = 'Resume';
 $string['resumenone'] = 'No saves found';
 $string['resumeselect'] = 'Choose a save point';

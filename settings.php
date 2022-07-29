@@ -52,6 +52,16 @@ if ($hassiteconfig) {
                                                     $name,
                                                     $description,
                                                     $default));
+
+    // Default email for upcoming course archiving.
+    $name = new lang_string('movetobincategorywarningemailsetting', 'tool_coursearchiver');
+    $description = new lang_string('movetobincategorywarningemailsetting_help', 'tool_coursearchiver');
+    $default = get_string('movetobincategorywarningemailsettingdefault', 'tool_coursearchiver');
+    $settings->add(new admin_setting_configtextarea('tool_coursearchiver/movetobincategorywarningemailsetting',
+                                                    $name,
+                                                    $description,
+                                                    $default));
+
     // Automatic opt out in months.
     $settings->add(new admin_setting_configtext('tool_coursearchiver/optoutmonthssetting',
                    get_string('optoutmonthssetting', 'tool_coursearchiver'),

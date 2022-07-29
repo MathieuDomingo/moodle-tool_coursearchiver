@@ -175,6 +175,9 @@ class tool_coursearchiver_tracker {
             case tool_coursearchiver_processor::MODE_MOVETOBINCATEGORY:
                 $modetext = "movetobincategory";
                 break;
+            case tool_coursearchiver_processor::MODE_MOVETOBINCATEGORYEMAIL:
+                $modetext = "movetobincategoryemail";
+                break;
             default:
                 throw new Exception('Mode not given for results.');
                 return;

@@ -76,6 +76,10 @@ class tool_coursearchiver_processor {
      * Move courses to bin category.
      */
     const MODE_MOVETOBINCATEGORY = 9;
+    /**
+     * Send emails about moving course to bin category.
+     */
+    const MODE_MOVETOBINCATEGORYEMAIL = 10;
 
     /** @var int processor mode. */
     protected $mode;
@@ -145,7 +149,8 @@ class tool_coursearchiver_processor {
                                                                           self::MODE_HIDEEMAIL,
                                                                           self::MODE_ARCHIVEEMAIL,
                                                                           self::MODE_OPTOUT,
-                                                                          self::MODE_MOVETOBINCATEGORY))) {
+                                                                          self::MODE_MOVETOBINCATEGORY,
+                                                                          self::MODE_MOVETOBINCATEGORYEMAIL))) {
             throw new coding_exception('Unknown process mode');
         }
 
@@ -181,7 +186,8 @@ class tool_coursearchiver_processor {
                                              self::MODE_HIDEEMAIL,
                                              self::MODE_ARCHIVEEMAIL,
                                              self::MODE_OPTOUT,
-                                             self::MODE_MOVETOBINCATEGORY))) {
+                                             self::MODE_MOVETOBINCATEGORY,
+                                             self::MODE_MOVETOBINCATEGORYEMAIL))) {
                 if (empty($mform)) {
                     throw new coding_exception(get_string('errornoform', 'tool_coursearchiver'));
                 } else {
@@ -362,6 +368,7 @@ class tool_coursearchiver_processor {
                 break;
             case self::MODE_HIDEEMAIL:
             case self::MODE_ARCHIVEEMAIL:
+            case self::MODE_MOVETOBINCATEGORYEMAIL:
                 $tracker->start();
                 if (!empty($this->data)) {
                     // Loop over the user array.
@@ -820,6 +827,10 @@ class tool_coursearchiver_processor {
             case self::MODE_ARCHIVEEMAIL:
                 $subject = get_string('archivewarningsubject', 'tool_coursearchiver');
                 $message = $config->archivewarningemailsetting;
+                break;
+            case self::MODE_MOVETOBINCATEGORYEMAIL:
+                $subject = get_string('movetobincategorywarningsubject', 'tool_coursearchiver');
+                $message = $config->movetobincategorywarningemailsetting;
                 break;
             default:
                 $this->errors[] = get_string('invalidmode', 'tool_coursearchiver');
@@ -1285,6 +1296,9 @@ class tool_coursearchiver_processor {
         } else if ($this->mode == self::MODE_ARCHIVEEMAIL) {
             $optoutbutton = get_string('optoutarchive', 'tool_coursearchiver');
         }
+        if ($this->mode == self::MODE_MOVETOBINCATEGORYEMAIL) {
+            $optoutbutton = get_string('optoutarchive', 'tool_coursearchiver');
+        }
 
         $tablehtml = array();
         $tablehtml[] = html_writer::start_tag('table', array('style' => 'border-collapse: collapse;',
@@ -1295,7 +1309,7 @@ class tool_coursearchiver_processor {
             $key = sha1($CFG->dbpass . $course->id . $obj["user"]->id);
 
             // Only add courses that are visible if mode is HIDEEMAIL.
-            if ($this->mode == self::MODE_ARCHIVEEMAIL || $course->visible) {
+            if ($this->mode == self::MODE_ARCHIVEEMAIL || $this->mode == self::MODE_MOVETOBINCATEGORYEMAIL || $course->visible) {
                 $rowcolor = $rowcolor == "#FFF" ? "#EEE" : "#FFF";
                 $linkstring = "";
                 if ($links) {
