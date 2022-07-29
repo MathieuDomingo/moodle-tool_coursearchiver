@@ -345,6 +345,9 @@ class tool_coursearchiver_processor {
                     // Loop over the course array.
                     $tracker->jobsize = count($courses);
                     foreach ($courses as $currentcourse) {
+                      //if course is in Bin Category
+                      if($currentcourse["course"]->category == get_config('tool_coursearchiver', 'category_bin'))
+                      {
                         // Remove Course.
                         if (delete_course($currentcourse["course"]->id, false)) {
                             $tracker->error = false;
@@ -353,6 +356,11 @@ class tool_coursearchiver_processor {
                             $tracker->error = true;
                             $this->errors[] = get_string('errordeletingcourse', 'tool_coursearchiver', $currentcourse["course"]);
                         }
+                      }
+                      else {
+                          $tracker->error = true;
+                          $this->errors[] = get_string('errordeletingcoursenotinbincategory', 'tool_coursearchiver', $currentcourse["course"]);
+                      }
                         $tracker->jobsdone++;
                         $tracker->output($currentcourse);
                     }

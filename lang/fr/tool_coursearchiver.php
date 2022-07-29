@@ -6,6 +6,7 @@ $string['category_bin_desc'] = 'Le cours sera déplacé dans cette catégorie Co
 $string['confirmmessagemovetobincategory'] = 'Déplacer dans la catégorie Corbeille ces {$a} cours?';
 $string['confirmmessagemovetobincategoryemail'] = 'Envoyer un courriel à ces {$a} enseignants de cours?';
 
+$string['errordeletingcoursenotinbincategory'] = 'Le cours: ({$a->id}) {$a->fullname} n\'étant pas dans la Catégorie Corbeille il ne peut pas etre supprimé ';
 $string['movetobincategory'] = 'Déplacer dans la catégorie Corbeille';
 $string['movetobincategoryemail'] = 'Envoyer les courriels « Cours à déplacer dans la catégorie Corbeille »';
 $string['movetobincategorywarningemailsetting'] = 'Courriel d\'avertissement par défaut pour le deplacement des cours dans la catégorie Corbeille';

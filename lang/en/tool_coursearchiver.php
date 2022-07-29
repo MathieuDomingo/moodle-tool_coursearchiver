@@ -99,6 +99,7 @@ $string['errorarchivepath'] = 'Archive path could not be created.';
 $string['errorarchivingcourse'] = 'Course: ({$a->id}) {$a->fullname} could not be archived.';
 $string['errorbackup'] = 'Backup Failed.';
 $string['errordeletingcourse'] = 'Course: ({$a->id}) {$a->fullname} could not be deleted.';
+$string['errordeletingcoursenotinbincategory'] = 'Course: ({$a->id}) {$a->fullname} is not in Bin Category so could not be deleted.';
 $string['erroremptysearch'] = 'No search criteria given.';
 $string['errorhidingcourse'] = 'Course: ({$a->id}) {$a->fullname} could not be hidden.';
 $string['errorinsufficientdata'] = 'Not enough information to perform this action';
